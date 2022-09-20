@@ -1,26 +1,19 @@
 package config
 
 import (
-	"fmt"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
-var (
-	db *gorm.DB
-)
+func GetMySQLBase() (db *sql.DB) {
+	dbDriver := "mysql"
+	dbUser := "pavel"
+	dbPass := "mysqlpaha100688"
+	dbName := "testdb2"
 
-func Connect() {
-	dns := "pavel:mysqlpaha100688@tcp(127.0.0.1:3306)/testdb2?charset=utf8mb4&parseTime=True&loc=Local"
-	d, err :=
-		gorm.Open(mysql.Open(dns), &gorm.Config{})
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
-	db = d
-	fmt.Println(db)
-}
-
-func GetDB() *gorm.DB {
 	return db
 }

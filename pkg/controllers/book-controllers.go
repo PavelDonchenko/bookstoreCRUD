@@ -3,8 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/PavelDonchenko/40projects/go-bookstore/pkg/config"
 	"github.com/PavelDonchenko/40projects/go-bookstore/pkg/models"
-	"github.com/PavelDonchenko/40projects/go-bookstore/pkg/utils"
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
@@ -13,75 +13,58 @@ import (
 var NewBook models.Book
 
 func GetBook(w http.ResponseWriter, r *http.Request) {
-	newBooks := models.GetAllBooks()
-	res, _ := json.Marshal(newBooks)
+	db := config.GetMySQLBase()
+	bookModel := models.BookModel{DB: db}
+	books, _ := bookModel.GetAllBooks()
+	res, _ := json.Marshal(books)
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
 
 func GetBookById(w http.ResponseWriter, r *http.Request) {
+	db := config.GetMySQLBase()
 	vars := mux.Vars(r)
 	bookId := vars["id"]
 	id, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
 		fmt.Println("Error while paring")
 	}
-	bookDetails, _ := models.GetBookById(id)
-	res, _ := json.Marshal(bookDetails)
+	bookModel := models.BookModel{DB: db}
+	book, _ := bookModel.GetBookById(id)
+	res, _ := json.Marshal(book)
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
+
 }
+
 func CreateBook(w http.ResponseWriter, r *http.Request) {
-	CreateBook := &models.Book{}
-	utils.ParseBody(r, CreateBook)
-	book := CreateBook.CreateBook()
-	res, _ := json.Marshal(book)
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
+	db := config.GetMySQLBase()
+	bookModel := models.BookModel{DB: db}
+	book := models.Book{
+		Id:          22,
+		Name:        "Sleep",
+		Author:      "John",
+		Publication: "sdsd",
+	}
+	err := bookModel.CreateBook(&book)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Lastest id:", book.Id)
+	}
 }
 
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	bookId := vars["id"]
-	id, err := strconv.ParseInt(bookId, 0, 0)
+	db := config.GetMySQLBase()
+	bookModel := models.BookModel{DB: db}
+	rows, err := bookModel.DeleteBook(6)
 	if err != nil {
-		fmt.Println("Error while paring")
+		fmt.Println(err)
+	} else {
+		if rows > 0 {
+			fmt.Println("Done")
+		}
 	}
-	book := models.DeleteBook(id)
-	res, _ := json.Marshal(book)
-	w.Header().Set("Content-type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
-}
-
-func UpdateBook(w http.ResponseWriter, r *http.Request) {
-	var updateBook = &models.Book{}
-	utils.ParseBody(r, updateBook)
-	vars := mux.Vars(r)
-	bookId := vars["id"]
-	id, err := strconv.ParseInt(bookId, 0, 0)
-	if err != nil {
-		fmt.Println("Error while paring")
-	}
-
-	bookDetails, db := models.GetBookById(id)
-
-	if bookDetails.Name != "" {
-		bookDetails.Name = updateBook.Name
-	}
-	if bookDetails.Author != "" {
-		bookDetails.Author = updateBook.Author
-	}
-	if bookDetails.Publication != "" {
-		bookDetails.Publication = updateBook.Publication
-	}
-
-	db.Save(bookDetails)
-
-	res, _ := json.Marshal(bookDetails)
-	w.Header().Set("Content-type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
 }
