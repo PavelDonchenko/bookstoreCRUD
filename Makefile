@@ -20,3 +20,9 @@ rm: stop ## Stop and remove running containers
 lint: ## Run golangci-lint
 	golangci-lint run
 	go vet ./...
+
+run: ##run application
+	go run main.go
+
+docker-test:
+	docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit
