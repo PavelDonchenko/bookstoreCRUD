@@ -3,6 +3,8 @@ APP_NAME=bookstorecrud
 build: ## Build the release and develoment container. The development
 	docker-compose build
 
+delete: ## Delete container and images
+	docker-compose docker system prune -a --volumes
 
 dev: ## Run container in development mode
 	docker-compose build --no-cache $(APP_NAME) && docker-compose run $(APP_NAME)

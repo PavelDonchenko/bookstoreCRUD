@@ -1,0 +1,1 @@
+grant all privileges on *.* to 'pavel'@'%' identified by 'password';
