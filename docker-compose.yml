@@ -4,13 +4,14 @@ services:
     image: mysql:latest
     container_name: bookstore_db_mysql
     ports:
-      - 3307:3306
+      - "3307:3306"
+    expose:
+      - "3306"
     environment:
-      - MYSQL_ROOT_HOST=${MYSQL_HOST}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_USER=pavel
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=testdb2
+      - MYSQL_ROOT_PASSWORD=password
     volumes:
       - database_mysql:/var/lib/mysql
     networks:
@@ -20,12 +21,14 @@ services:
     container_name: bookstore_app
     build: .
     ports:
-      - 8800:8800
-    restart: on-failure
+      - "8081:8081"
+    restart: always
+    environment:
+      - MYSQL_HOST=bookstore-mysql
     volumes:
       - api:/usr/src/app/
     depends_on:
-      -   bookstore-mysql
+      - bookstore-mysql
     networks:
       - fullstack
 
