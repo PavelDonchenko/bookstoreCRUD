@@ -8,10 +8,10 @@ services:
     expose:
       - "3306"
     environment:
-      - MYSQL_USER=pavel
-      - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=testdb2
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - database_mysql:/var/lib/mysql
     networks:
@@ -23,8 +23,6 @@ services:
     ports:
       - "8081:8081"
     restart: always
-    environment:
-      - MYSQL_HOST=bookstore-mysql
     volumes:
       - api:/usr/src/app/
     depends_on:

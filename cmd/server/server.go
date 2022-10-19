@@ -10,6 +10,6 @@ func Run() {
 
 	server.Initialize("mysql")
 
-	server.Run("localhost:8081")
+	server.Run(":8081")
 
 }
