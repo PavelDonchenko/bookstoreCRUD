@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
+	"strconv"
+
 	"github.com/PavelDonchenko/bookstoreCRUD/api/responses"
 	"github.com/PavelDonchenko/bookstoreCRUD/pkg/auth"
 	"github.com/PavelDonchenko/bookstoreCRUD/pkg/models"
 	"github.com/PavelDonchenko/bookstoreCRUD/pkg/utils"
 	"github.com/gorilla/mux"
-	"io"
-	"net/http"
-	"strconv"
 )
 
 func (s *Server) CreateUser(w http.ResponseWriter, r *http.Request) {

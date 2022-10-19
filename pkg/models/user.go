@@ -2,13 +2,14 @@ package models
 
 import (
 	"errors"
-	"github.com/badoux/checkmail"
-	"github.com/jinzhu/gorm"
-	"golang.org/x/crypto/bcrypt"
 	"html"
 	"log"
 	"strings"
 	"time"
+
+	"github.com/badoux/checkmail"
+	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {

@@ -6,6 +6,6 @@ RUN go mod download
 COPY . .
 RUN go build -o /main
 
-EXPOSE 6666
+EXPOSE 8081
 
 CMD [ "/main" ]
