@@ -10,6 +10,7 @@ func Run() {
 
 	server.Initialize("mysql")
 
+	//Run server
 	server.Run(":8081")
 
 }
