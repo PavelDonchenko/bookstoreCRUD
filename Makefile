@@ -22,6 +22,7 @@ rm: stop ## Stop and remove running containers
 lint: ## Run golangci-lint
 	golangci-lint run
 	go vet ./...
+	echo "finish"
 
 run: ##run application
 	go run main.go

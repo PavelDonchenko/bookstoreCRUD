@@ -175,7 +175,7 @@ func TestCGetBookByID(t *testing.T) {
 			user_id:    book.UserID,
 		},
 		{
-			id:         "unknwon",
+			id:         "unknown",
 			statusCode: 400,
 		},
 	}
@@ -312,7 +312,7 @@ func TestUpdateBook(t *testing.T) {
 			errorMessage: "Unauthorized",
 		},
 		{
-			id:         "unknwon",
+			id:         "unknown",
 			statusCode: 400,
 		},
 		{
@@ -424,7 +424,7 @@ func TestDeleteBook(t *testing.T) {
 			errorMessage: "Unauthorized",
 		},
 		{
-			id:         "unknwon",
+			id:         "unknown",
 			tokenGiven: tokenString,
 			statusCode: 400,
 		},

@@ -18,7 +18,7 @@ var bookInstance = models.Book{}
 
 func TestMain(m *testing.M) {
 	var err error
-	err = godotenv.Load(os.ExpandEnv("../.env"))
+	err = godotenv.Load(os.ExpandEnv("../test.env"))
 	if err != nil {
 		log.Fatalf("Error getting env %v\n", err)
 	}

@@ -144,7 +144,7 @@ func TestCGetUserByID(t *testing.T) {
 			email:      user.Email,
 		},
 		{
-			id:         "unknwon",
+			id:         "unknown",
 			statusCode: 400,
 		},
 	}
@@ -284,7 +284,7 @@ func TestUpdateUser(t *testing.T) {
 			errorMessage: "Required Email",
 		},
 		{
-			id:         "unknwon",
+			id:         "unknown",
 			tokenGiven: tokenString,
 			statusCode: 400,
 		},
@@ -387,7 +387,7 @@ func TestDeleteUser(t *testing.T) {
 			errorMessage: "Unauthorized",
 		},
 		{
-			id:         "unknwon",
+			id:         "unknown",
 			tokenGiven: tokenString,
 			statusCode: 400,
 		},
