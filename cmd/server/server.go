@@ -7,7 +7,7 @@ import (
 var server = controllers.Server{}
 
 func Run() {
-
+	// Init Database
 	server.Initialize("mysql")
 
 	//Run server
