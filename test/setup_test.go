@@ -32,10 +32,10 @@ func Database() {
 
 	var err error
 
-	TestDbDriver := os.Getenv("TestDbDriver")
+	TestDbDriver := "mysql"
 
 	if TestDbDriver == "mysql" {
-		DBURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("TestDbUser"), os.Getenv("TestDbPassword"), os.Getenv("TestDbHost"), os.Getenv("TestDbPort"), os.Getenv("TestDbName"))
+		DBURL := "pavel:password@tcp(mysql_test:3306)/bookstore_test?charset=utf8&parseTime=True&loc=Local"
 		server.DB, err = gorm.Open(TestDbDriver, DBURL)
 		if err != nil {
 			fmt.Printf("Cannot connect to %s database\n", TestDbDriver)

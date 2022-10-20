@@ -15,4 +15,4 @@ COPY . .
 
 # Run tests
 WORKDIR /app/test
-CMD go test -v  ./...
+CMD go test -v
