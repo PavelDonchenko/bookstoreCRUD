@@ -5,9 +5,8 @@ metadata:
   labels:                                # Labels that will be applied to the resource
     app: bookstore-mysql
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 3306
   selector:                              # Selects any Pod with labels `app=bookstore-mysql,tier=mysql`
     app: bookstore-mysql
-    tier: mysqlkubectl get pods

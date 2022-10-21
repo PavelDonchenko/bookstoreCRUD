@@ -5,7 +5,7 @@ metadata:
   labels:                               # Labels that will be applied to the resource
     app: bookstore-app-mysql
 spec:
-  type: NodePort                        # Gives each node an external IP that’s accessible from outside the cluster and also opens a Port.
+  type: LoadBalancer                      # Gives each node an external IP that’s accessible from outside the cluster and also opens a Port.
   selector:
     app: bookstore-app-mysql            # Selects any Pod with labels `app=bookstore-app-mysql`
   ports:
