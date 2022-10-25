@@ -7,9 +7,10 @@ import (
 var server = controllers.Server{}
 
 func Run() {
-
+	// Init Database
 	server.Initialize("mysql")
 
-	server.Run("localhost:6666")
+	//Run server
+	server.Run(":8081")
 
 }

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bstore
+  labels:
+    name: bstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bstore
+  template:
+    metadata:
+      labels:
+        app: bstore
+    spec:
+      containers:
+        - name: bstore
+          image: gcr.io/bookstore-366212/bookstore:v0.0.7
+          ports:
+            - name: http
+              containerPort: 8081                               # Should match the port number that the Go application listens on
+          envFrom:
+            - secretRef:
+               name: mysql-secret
+      restartPolicy: Always

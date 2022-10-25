@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  mysql_test:
+    image: mysql:latest
+    restart: on-failure
+    container_name: mysql_test
+    ports:
+      - "3333:3306"
+    environment:
+      - MYSQL_DATABASE=bookstore_test
+      - MYSQL_USER=pavel
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=Mysql&paha100688
+      - MYSQL_ROOT_HOST:"%"
+    networks:
+      - fullstack_test
+
+  app_test:
+    container_name: bookstore_app_test
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./Dockerfile.test
+    volumes:
+      - api_test:/app/src/app/
+    depends_on:
+      - mysql_test
+    networks:
+      - fullstack_test
+
+
+
+volumes:
+    api_test:
+    database_mysql_test:
+
+networks:
+    fullstack_test:
+      driver: bridge

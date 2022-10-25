@@ -2,13 +2,14 @@ package controllers
 
 import (
 	"encoding/json"
+	"io"
+	"net/http"
+
 	"github.com/PavelDonchenko/bookstoreCRUD/api/responses"
 	"github.com/PavelDonchenko/bookstoreCRUD/pkg/auth"
 	"github.com/PavelDonchenko/bookstoreCRUD/pkg/models"
 	"github.com/PavelDonchenko/bookstoreCRUD/pkg/utils"
 	"golang.org/x/crypto/bcrypt"
-	"io"
-	"net/http"
 )
 
 func (s *Server) Login(w http.ResponseWriter, r *http.Request) {

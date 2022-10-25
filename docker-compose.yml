@@ -1,36 +1,36 @@
 version: '3'
 services:
-  app:
-    container_name: bookstore_app
-    build: .
-    ports:
-      - 6666:6666
-    restart: on-failure
-    volumes:
-      - api:/usr/src/app/
-    depends_on:
-      -   bookstore-mysql
-    networks:
-      - fullstack
-
-
-  bookstore-mysql:
+  mysql:
     image: mysql:latest
-    container_name: bookstore_db_mysql
+    container_name: mysql
     ports:
-      - 3307:3306
+      - "3307:3306"
+    expose:
+      - "3306"
     environment:
-      - MYSQL_ROOT_HOST=bookstore-mysql
-      - MYSQL_USER=pavel
-      - MYSQL_PASSWORD=mysqlpaha100688
-      - MYSQL_DATABASE=testdb2
-      - MYSQL_ROOT_PASSWORD=mysqlpaha100688
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - database_mysql:/var/lib/mysql
     networks:
       - fullstack
 
-
+  app:
+    container_name: bookstore_app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8081:8081"
+    restart: always
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - bookstore-mysql
+    networks:
+      - fullstack
 
 volumes:
   api:

@@ -2,10 +2,11 @@ package models
 
 import (
 	"errors"
-	"github.com/jinzhu/gorm"
 	"html"
 	"strings"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 var db *gorm.DB
