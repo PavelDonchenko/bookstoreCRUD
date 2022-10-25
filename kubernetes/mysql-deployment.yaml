@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mysql
+  template:
+    metadata:
+      labels:
+        service: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:latest
+          envFrom: # Environment variables passed to the container
+            - secretRef: # Read environment variables from kubernetes secrets
+                name: mysql-secret
+          ports:
+            - containerPort: 3306             # The port that the container exposes
+              name: mysql
+          volumeMounts:
+            - name: mysql-volume-mount
+              mountPath: /var/lib/mysql
+              subPath: mysql
+      restartPolicy: Always
+      volumes:
+        - name: mysql-volume-mount
+          persistentVolumeClaim:
+            claimName: mysql-pvc

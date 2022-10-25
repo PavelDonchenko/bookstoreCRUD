@@ -29,3 +29,6 @@ run: ##run application
 
 docker-test:
 	docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit
+
+kub-pods:
+	kubectl get pods
